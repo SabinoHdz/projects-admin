@@ -68,7 +68,10 @@ import FabButton from '@/modules/common/components/FabButton.vue';
 import InputModal from '@/modules/common/components/InputModal.vue';
 import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import ModalIcon from '@/modules/common/icons/ModalIcon.vue';
+import { useProjectsStore } from '@/stores/projects.store';
 import { ref } from 'vue';
+
+const projectsStore = useProjectsStore();
 
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
