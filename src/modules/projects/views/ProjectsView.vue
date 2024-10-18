@@ -12,11 +12,13 @@
       </thead>
       <tbody>
         <!-- row 1 -->
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
+        <tr v-for="(project, index) in projectsStore.projectList" :key="project.id" class="hover">
+          <th>{{ index + 1 }}</th>
+          <td>{{ project.name }}</td>
+          <td>{{ project.task.length }}</td>
+          <td>
+            <progress class="progress progress-primary w-56" value="10" max="100"></progress>
+          </td>
         </tr>
         <!-- row 2 -->
       </tbody>
@@ -27,7 +29,7 @@
       description="Ingresa el nombre del proyecto"
       :open="modalOpen"
       @close="modalOpen = false"
-      @value="onNewValue"
+      @value="projectsStore.addProject"
     />
 
     <CustomModal :open="customModalOpen">
@@ -73,9 +75,9 @@ import { ref } from 'vue';
 
 const projectsStore = useProjectsStore();
 
+// let projects = computed(() => projectsStore.projectList);
+// console.log({ proyectos: projects.value });
+
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
-const onNewValue = (projectName: string) => {
-  console.log(projectName);
-};
 </script>
