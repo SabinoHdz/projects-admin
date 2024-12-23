@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 interface Props {
   title: string;
@@ -38,7 +38,7 @@ interface Props {
   open: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 const emits = defineEmits<{
   close: [void];
   value: [text: string];
@@ -54,4 +54,8 @@ const submitValue = () => {
   emits('close');
   inputVal.value = '';
 };
+
+watch(props, ({ open }) => {
+  if (open) inputRef.value?.focus();
+});
 </script>

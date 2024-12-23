@@ -15,9 +15,13 @@
         <tr v-for="(project, index) in projectsStore.projectList" :key="project.id" class="hover">
           <th>{{ index + 1 }}</th>
           <td>{{ project.name }}</td>
-          <td>{{ project.task.length }}</td>
+          <td>{{ project.tasks.length }}</td>
           <td>
-            <progress class="progress progress-primary w-56" value="10" max="100"></progress>
+            <progress
+              class="progress progress-primary w-56"
+              :value="(getCompltedTask(project.tasks) / project.tasks.length) * 100"
+              max="100"
+            ></progress>
           </td>
         </tr>
         <!-- row 2 -->
@@ -72,6 +76,7 @@ import AddCircle from '@/modules/common/icons/AddCircle.vue';
 import ModalIcon from '@/modules/common/icons/ModalIcon.vue';
 import { useProjectsStore } from '@/stores/projects.store';
 import { ref } from 'vue';
+import type { Task } from '../interfaces/project.interface';
 
 const projectsStore = useProjectsStore();
 
@@ -80,4 +85,7 @@ const projectsStore = useProjectsStore();
 
 const modalOpen = ref(false);
 const customModalOpen = ref(false);
+const getCompltedTask = (tasks: Task[]) => {
+  return tasks.filter((task) => task.completed).length;
+};
 </script>
